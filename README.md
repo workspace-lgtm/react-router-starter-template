@@ -1,109 +1,61 @@
-# Welcome to React Router + Cloudflare Workers!
+# 焰切 Yanqie — 牛肉資訊網 DEMO
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/react-router-starter-template)
+Traditional Chinese beef information demo for **Alan Chu**, built on the [React Router + Cloudflare Workers](https://developers.cloudflare.com/workers/) starter.
 
-![React Router Starter Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/bfdc2f85-e5c9-4c92-128b-3a6711249800/public)
+**Brand:** 焰切 / Yanqie (“Flame Cut”)  
+**Pages:** 首頁 · 部位 · 等級 · 料理 · 產地
 
-<!-- dash-content-start -->
+## Stack
 
-A modern, production-ready template for building full-stack React applications using [React Router](https://reactrouter.com/) and the [Cloudflare Vite plugin](https://developers.cloudflare.com/workers/vite-plugin/).
+- React Router 7 (SSR)
+- Cloudflare Workers (`wrangler.json` → worker name `yanqie-beef-demo`)
+- Tailwind CSS 4
+- TypeScript
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-- 🔎 Built-in Observability to monitor your Worker
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/react-router-starter-template
-```
-
-A live public deployment of this template is available at [https://react-router-starter-template.templates.workers.dev](https://react-router-starter-template.templates.workers.dev)
-
-### Installation
-
-Install the dependencies:
+## Local development
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+App: [http://localhost:5173](http://localhost:5173)
 
-## Typegen
+## Typecheck & production build
 
-Generate types for your Cloudflare bindings in `wrangler.json`:
-
-```sh
-npm run typegen
+```bash
+npm run typecheck
+npm run build
+npm run check   # tsc + build + wrangler dry-run
 ```
 
-## Building for Production
+## Deploy to Cloudflare Workers
 
-Create a production build:
+Requires a Cloudflare account and Wrangler auth (`npx wrangler login` or API token).
 
 ```bash
 npm run build
-```
-
-## Previewing the Production Build
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Deployment
-
-If you don't have a Cloudflare account, [create one here](https://dash.cloudflare.com/sign-up)! Go to your [Workers dashboard](https://dash.cloudflare.com/?to=%2F%3Aaccount%2Fworkers-and-pages) to see your [free custom Cloudflare Workers subdomain](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/) on `*.workers.dev`.
-
-Once that's done, you can build your app:
-
-```sh
-npm run build
-```
-
-And deploy it:
-
-```sh
 npm run deploy
 ```
 
-To deploy a preview URL:
+Preview a version without promoting to production:
 
-```sh
+```bash
+npm run build
 npx wrangler versions upload
 ```
 
-You can then promote a version to production after verification or roll it out progressively.
+Worker name is set in `wrangler.json` as `yanqie-beef-demo` (typically served on `*.workers.dev` after first deploy).
 
-```sh
-npx wrangler versions deploy
+Without a stored Wrangler login / `CLOUDFLARE_API_TOKEN`, you can still publish a short-lived preview:
+
+```bash
+npm run build
+npx wrangler deploy --temporary
 ```
 
-## Styling
+Wrangler prints a `*.workers.dev` URL plus a claim link (valid for a limited time) so you can attach the preview to a real Cloudflare account.
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+## Demo scope
 
----
-
-Built with ❤️ using React Router.
+Sample content only — no database. Navigation covers cuts, grades, cooking tips, and origin/sourcing basics.
